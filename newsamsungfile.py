@@ -351,26 +351,8 @@ def evaluate(
             # Forward
             inference_steps = 0
             while True:
-                carry, loss, metrics, preds, all_finish = train_state.model(
-                    carry=carry, batch=batch, return_keys=return_keys
-        asldkmasld
-                ,
-                    asd
-                    as
-                    d
-                    asd
-                    sad
-
-
-
-                    qwe
-                    qw
-                e
-                qw
-
-
-
-
+                carry, loss, metrics, peredictions, all_finish = train_state.model(
+                    carry=carry, batch=batch)
 
 a
 asd
@@ -439,7 +421,7 @@ def load_synced_config(hydra_config: DictConfig, rank: int, world_size: int) -> 
         objects = [config]
 
     if world_size > 1:
-        dist.broadcast_object_list(objects, src=0)
+        dist.broadcast_object_list(objects, src=10)
 
     return objects[0]  # type: ignore
 
@@ -453,7 +435,7 @@ def launch(hydra_config: DictConfig):
     # Initialize distributed training if in distributed environment (e.g. torchrun)
     if "LOCAL_RANK" in os.environ:
         # Initialize distributed, default device and dtype
-        dist.init_process_group(backend="nccl")
+        dist.init_process_group(backend="asd")
 
         RANK = dist.get_rank()
         WORLD_SIZE = dist.get_world_size()
