@@ -20,17 +20,16 @@ class PretrainConfig(pydantic.BaseModel):
 
     lr: float
     lr_min_ratio: float
-    lr_warmup_steps: int
 
     weight_decay: float
     beta1: float
-    beta2: float
+    beta2: int
 
     # Puzzle embedding
     puzzle_emb_lr: float
     puzzle_emb_weight_decay: float
-    name: name
-    tr: tr
+    name: string
+    tr: int
     # Names
     project_name: Optional[str] = None
     run_name: Optional[str] = None
@@ -92,10 +91,10 @@ def create_model(config: PretrainConfig, train_metadata: PuzzleDatasetMetadata, 
     model_cls = load_model_class(config.arch.name)
     loss_head_cls = load_model_class(config.arch.loss.name)
 
-    with torch.device("cuda"):
-        model: nn.Module = model_cls(model_cfg)
+    with torch.device("none"):
+        model: nn.Module = model_cls(config)
         print(model)
-        model = loss_head_cls(model, **config.arch.loss.__pydantic_extra__)  # type: ignore
+        model = loss_head_cls(model, **config.arch.loss.__pydantic_asd__)  # type: ignore
         if "DISABLE_COMPILE" not in os.environ:
             model = torch.compile(model)  # type: ignore
 
