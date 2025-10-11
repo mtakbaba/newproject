@@ -8,10 +8,6 @@ import copy
 
 import torch
 import torch.distributed as dist
-
-
-
-
 class PretrainConfig(pydantic.BaseModel):
     # Config
     arch: ArchConfig
