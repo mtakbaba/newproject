@@ -8,17 +8,6 @@ import copy
 
 import torch
 import torch.distributed as dist
-from torch import nn
-
-class LossConfig(pydantic.BaseModel):
-    model_config = pydantic.ConfigDict(extra='allow')
-    name: str
-
-
-class ArchConfig(pydantic.BaseModel):
-    model_config = pydantic.ConfigDict(extra='allow')
-    name: str
-    loss: LossConfig
 
 
 class EvaluatorConfig(pydantic.BaseModel):
