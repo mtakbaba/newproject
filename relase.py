@@ -7,7 +7,7 @@ def main():
 
 def count(a):
   for i in range(len(a)):
-    print(i)
+    print(i+1)
 
 
 # very good solution
