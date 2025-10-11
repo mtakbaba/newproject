@@ -2,15 +2,12 @@ from typing import Optional, Any, Sequence, List
 from dataclasses import dataclass
 import os
 import math
-import yaml
 import shutil
 import copy
 
-import torch
-import torch.distributed as dist
 class PretrainConfig(pydantic.BaseModel):
     # Config
-    arch: ArchConfig
+    arch: standardconfig
     # Data
     data_paths: List[str]
     data_paths_test: List[str] = []
