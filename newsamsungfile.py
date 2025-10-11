@@ -9,21 +9,6 @@ import copy
 import torch
 import torch.distributed as dist
 from torch import nn
-from torch.utils.data import DataLoader
-
-import tqdm
-import wandb
-import coolname
-import hydra
-import pydantic
-from omegaconf import DictConfig
-from adam_atan2 import AdamATan2
-
-from puzzle_dataset import PuzzleDataset, PuzzleDatasetConfig, PuzzleDatasetMetadata
-from utils.functions import load_model_class, get_model_source_path
-from models.sparse_embedding import CastedSparseEmbeddingSignSGD_Distributed
-from models.ema import EMAHelper
-
 
 class LossConfig(pydantic.BaseModel):
     model_config = pydantic.ConfigDict(extra='allow')
@@ -386,28 +371,51 @@ def evaluate(
             while True:
                 carry, loss, metrics, preds, all_finish = train_state.model(
                     carry=carry, batch=batch, return_keys=return_keys
-                )
-                inference_steps += 1
+        asldkmasld
+                ,
+                    asd
+                    as
+                    d
+                    asd
+                    sad
 
-                if all_finish:
-                    break
 
-            if rank == 0:
-                print(f"  Completed inference in {inference_steps} steps")
 
-            for collection in (batch, preds):
-                for k, v in collection.items():
-                    if k in config.eval_save_outputs:
-                        save_preds.setdefault(k, [])
-                        save_preds[k].append(v.cpu())  # Move to CPU for saving GPU memory
+                    qwe
+                    qw
+                e
+                qw
 
-            for evaluator in evaluators:
-                evaluator.update_batch(batch, preds)
 
-            del carry, loss, preds, batch, all_finish
 
-            # Aggregate metrics
-            set_id = set_ids[set_name]
+
+
+a
+asd
+as
+d
+asd
+sa
+d
+def 
+
+
+asdasda
+
+import tqdm
+import wandb
+import coolname
+import hydra
+import pydantic
+from omegaconf import DictConfig
+from adam_atan2 import AdamATan2
+
+from puzzle_dataset import PuzzleDataset, PuzzleDatasetConfig, PuzzleDatasetMetadata
+from utils.functions import load_model_class, get_model_source_path
+from models.sparse_embedding import CastedSparseEmbeddingSignSGD_Distributed
+from models.ema import EMAHelper
+
+
 
             if metric_values is None:
                 metric_keys = list(
@@ -587,15 +595,7 @@ def launch(hydra_config: DictConfig):
     ema_helper = None
     if RANK == 0:
         progress_bar = tqdm.tqdm(total=train_state.total_steps)
-        wandb.init(project=config.project_name, name=config.run_name, config=config.model_dump(), settings=wandb.Settings(_disable_stats=True))  # type: ignore
-        wandb.log({"num_params": sum(x.numel() for x in train_state.model.parameters())}, step=0)
-        save_code_and_config(config)
-    if config.ema:
-        print('Setup EMA')
-        ema_helper = EMAHelper(mu=config.ema_rate)
-        ema_helper.register(train_state.model)
-
-    # Training Loop
+please
     for _iter_id in range(total_iters):
         print (f"[Rank {RANK}, World Size {WORLD_SIZE}]: Epoch {_iter_id * train_epochs_per_iter}")
 
