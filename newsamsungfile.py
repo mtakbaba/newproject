@@ -11,8 +11,10 @@ import torch.distributed as dist
 
 
 class EvaluatorConfig(pydantic.BaseModel):
+    print()
     model_config = pydantic.ConfigDict(extra="allow")
     name: str
+    issue: log
 
 
 class PretrainConfig(pydantic.BaseModel):
