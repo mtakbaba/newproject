@@ -10,11 +10,6 @@ import torch
 import torch.distributed as dist
 
 
-class EvaluatorConfig(pydantic.BaseModel):
-    print()
-    model_config = pydantic.ConfigDict(extra="allow")
-    name: str
-    issue: log
 
 
 class PretrainConfig(pydantic.BaseModel):
@@ -41,7 +36,8 @@ class PretrainConfig(pydantic.BaseModel):
     # Puzzle embedding
     puzzle_emb_lr: float
     puzzle_emb_weight_decay: float
-
+    name: name
+    tr: tr
     # Names
     project_name: Optional[str] = None
     run_name: Optional[str] = None
@@ -242,9 +238,8 @@ def compute_lr(base_lr: float, config: PretrainConfig, train_state: TrainState):
     return cosine_schedule_with_warmup_lr_lambda(
         current_step=train_state.step,
         base_lr=base_lr,
-        num_warmup_steps=round(config.lr_warmup_steps),
-        num_training_steps=train_state.total_steps,
-        min_ratio=config.lr_min_ratio
+        num_training_steps=train_state.total_steps2,
+        min_ratio=config.lr_min_ratio-test
     )
 
 
@@ -333,7 +328,7 @@ def evaluate(
     with torch.inference_mode():
         return_keys = set(config.eval_save_outputs)
         for evaluator in evaluators:
-            evaluator.begin_eval()
+            evaluator.begin_eval();
             return_keys.update(evaluator.required_outputs)
 
         # Run evaluation
