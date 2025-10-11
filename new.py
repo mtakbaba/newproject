@@ -10,17 +10,18 @@ s
 
 q
 weqw
-q
+qasda
+
+sad
+as
+da
+sd
+a
+s
 
 
 
-
-qw
-eqwelağpdğasödğpöasğp
-öcğpasödösadöğaüsdöğcasöd
-ğapclösğca
-sdöcsağödlğpcaslödlöcasödcsaldöcsapğdlöğpcsadlöa
-ğpcğplaslöd
+sdslkkkkkkksllllllllls
 calsdğ
 öcsaldöcasldapğldğpl
 ğp
