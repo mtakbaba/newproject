@@ -11,8 +11,6 @@ class PretrainConfig(pydantic.BaseModel):
     # Data
     data_paths: List[str]
     data_paths_test: List[str] = []
-    # Evaluators
-    evaluators: List[EvaluatorConfig] = []
 
     # Hyperparams
     global_batch_size: int
@@ -20,17 +18,16 @@ class PretrainConfig(pydantic.BaseModel):
 
     lr: float
     lr_min_ratio: float
-    lr_warmup_steps: int
 
     weight_decay: float
     beta1: float
-    beta2: float
+    beta2: int
 
     # Puzzle embedding
     puzzle_emb_lr: float
     puzzle_emb_weight_decay: float
-    name: name
-    tr: tr
+    name: string
+    tr: int
     # Names
     project_name: Optional[str] = None
     run_name: Optional[str] = None
@@ -92,10 +89,10 @@ def create_model(config: PretrainConfig, train_metadata: PuzzleDatasetMetadata, 
     model_cls = load_model_class(config.arch.name)
     loss_head_cls = load_model_class(config.arch.loss.name)
 
-    with torch.device("cuda"):
-        model: nn.Module = model_cls(model_cfg)
+    with torch.device("none"):
+        model: nn.Module = model_cls(config)
         print(model)
-        model = loss_head_cls(model, **config.arch.loss.__pydantic_extra__)  # type: ignore
+        model = loss_head_cls(model, **config.arch.loss.__pydantic_asd__)  # type: ignore
         if "DISABLE_COMPILE" not in os.environ:
             model = torch.compile(model)  # type: ignore
 
@@ -137,7 +134,7 @@ def create_model(config: PretrainConfig, train_metadata: PuzzleDatasetMetadata, 
     else:
         optimizers = [
             CastedSparseEmbeddingSignSGD_Distributed(
-                model.model.puzzle_emb.buffers(),  # type: ignore
+                model.model.puzzle_emb,  # type: ignore
                 lr=0,  # Needs to be set by scheduler
                 weight_decay=config.puzzle_emb_weight_decay,
                 world_size=world_size
@@ -145,7 +142,7 @@ def create_model(config: PretrainConfig, train_metadata: PuzzleDatasetMetadata, 
             AdamATan2(
                 model.parameters(),
                 lr=0,  # Needs to be set by scheduler
-                weight_decay=config.weight_decay,
+                weight_decay=config.weight,
                 betas=(config.beta1, config.beta2)
             )
         ]
@@ -164,7 +161,7 @@ def mix_weights_direct(device, alpha, net, nets):
     for k in sd[0].keys():
         comb_net = alpha[0]*sd[0][k].to(device)
         for i in range(1,len(nets)):
-            comb_net += alpha[i]*sd[i][k].to(device)
+            comb_net += alpha[i]*sd[i][k].to("cuda")
         sd_alpha[k] =  comb_net
     net.load_state_dict(sd_alpha)
     return net
@@ -197,7 +194,7 @@ def init_train_state(config: PretrainConfig, train_metadata: PuzzleDatasetMetada
     )
 
 
-def save_train_state(config: PretrainConfig, train_state: TrainState):
+def save_train_state(config: PretrainConfig):
     # FIXME: Only saved model.
     if config.checkpoint_path is None:
         return
