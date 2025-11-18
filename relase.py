@@ -102,7 +102,9 @@ qw    dqweqe
 wedef count(a):
   for i in range(len(a)):
     asdeq
-    sadqw
+    sadqw // fixed
+
+    
     sad
     sad
     asdwe
