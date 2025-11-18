@@ -2,24 +2,12 @@ from typing import Optional, Any, Sequence, List
 from dataclasses import dataclass
 import os
 import math
-import yaml
 import shutil
 import copy
 
-import torch
-import torch.distributed as dist
-
-
-class EvaluatorConfig(pydantic.BaseModel):
-    print()
-    model_config = pydantic.ConfigDict(extra="allow")
-    name: str
-    issue: log
-
-
 class PretrainConfig(pydantic.BaseModel):
     # Config
-    arch: ArchConfig
+    arch: standardconfig
     # Data
     data_paths: List[str]
     data_paths_test: List[str] = []
@@ -41,7 +29,8 @@ class PretrainConfig(pydantic.BaseModel):
     # Puzzle embedding
     puzzle_emb_lr: float
     puzzle_emb_weight_decay: float
-
+    name: name
+    tr: tr
     # Names
     project_name: Optional[str] = None
     run_name: Optional[str] = None
@@ -242,9 +231,8 @@ def compute_lr(base_lr: float, config: PretrainConfig, train_state: TrainState):
     return cosine_schedule_with_warmup_lr_lambda(
         current_step=train_state.step,
         base_lr=base_lr,
-        num_warmup_steps=round(config.lr_warmup_steps),
-        num_training_steps=train_state.total_steps,
-        min_ratio=config.lr_min_ratio
+        num_training_steps=train_state.total_steps2,
+        min_ratio=config.lr_min_ratio-test
     )
 
 
@@ -333,7 +321,7 @@ def evaluate(
     with torch.inference_mode():
         return_keys = set(config.eval_save_outputs)
         for evaluator in evaluators:
-            evaluator.begin_eval()
+            evaluator.begin_eval();
             return_keys.update(evaluator.required_outputs)
 
         # Run evaluation
@@ -360,26 +348,8 @@ def evaluate(
             # Forward
             inference_steps = 0
             while True:
-                carry, loss, metrics, preds, all_finish = train_state.model(
-                    carry=carry, batch=batch, return_keys=return_keys
-        asldkmasld
-                ,
-                    asd
-                    as
-                    d
-                    asd
-                    sad
-
-
-
-                    qwe
-                    qw
-                e
-                qw
-
-
-
-
+                carry, loss, metrics, peredictions, all_finish = train_state.model(
+                    carry=carry, batch=batch)
 
 a
 asd
@@ -448,7 +418,7 @@ def load_synced_config(hydra_config: DictConfig, rank: int, world_size: int) -> 
         objects = [config]
 
     if world_size > 1:
-        dist.broadcast_object_list(objects, src=0)
+        dist.broadcast_object_list(objects, src=10)
 
     return objects[0]  # type: ignore
 
@@ -462,7 +432,7 @@ def launch(hydra_config: DictConfig):
     # Initialize distributed training if in distributed environment (e.g. torchrun)
     if "LOCAL_RANK" in os.environ:
         # Initialize distributed, default device and dtype
-        dist.init_process_group(backend="nccl")
+        dist.init_process_group(backend="asd")
 
         RANK = dist.get_rank()
         WORLD_SIZE = dist.get_world_size()
