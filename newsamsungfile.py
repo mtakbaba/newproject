@@ -35,11 +35,28 @@ class PretrainConfig(pydantic.BaseModel):
     checkpoint_path: Optional[str] = None
 
     # Extras
-    seed: int = 0
-    checkpoint_every_eval: bool = False
-    eval_interval: Optional[int] = None
-    min_eval_interval: Optional[int] = 0 # when to start eval
-    eval_save_outputs: List[str] = []
+ asdsad
+
+as
+a
+s
+
+sa
+s
+as
+a
+sa
+a
+s
+a
+sa
+s
+as
+as
+a
+sa
+sa
+
 
     ema: bool = False # use Exponential-Moving-Average
     ema_rate: float = 0.999 # EMA-rate
