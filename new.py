@@ -304,3 +304,8 @@ vasğd va
 sda psğ
 dc
 sa
+
+
+def func2(a,b,c,d,e,f):
+  x = (a+b+c+d+e)*f
+  return x*2
