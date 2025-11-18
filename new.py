@@ -300,4 +300,7 @@ sa
 
 test12'yi çözmek için kod burası şuanda
 
-
+def func1(a, b):
+  c = a + b
+  d = c*2
+  return d
