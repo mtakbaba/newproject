@@ -1,12 +1,4 @@
-please
-as
-d
-asd
-as
-d
-asd
-a
-s
+p
 
 q
 weqw
@@ -309,3 +301,10 @@ sa
 def func2(a,b,c,d,e,f):
   x = (a+b+c+d+e)*f
   return x*2
+
+test12'yi çözmek için kod burası şuanda
+
+def func1(a, b):
+  c = a + b
+  d = c*2
+  return d
