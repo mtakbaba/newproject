@@ -304,3 +304,8 @@ vasğd va
 sda psğ
 dc
 sa
+
+
+test12'yi çözmek için kod burası şuanda
+
+
