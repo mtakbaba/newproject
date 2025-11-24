@@ -1,21 +1,5 @@
-///this is 1.0.0
-asdasd
-
-
-
-ad
-asd
-ad
-sad
-sad("1.0.0")
-
-
-
-
-def count(a):
-  for i in range(len(a)):
-    asd
-    asd
+asdasdd
+wdwqdwqd
     sad
     sad
     sad
@@ -87,37 +71,33 @@ def count(a):
     sad
     sad
     asd
-    as
-    das
-    d
+    asqwe
+    dasqwe
+    deqweqwe
     ad
-    d
-def count(a):
+qw    dqweqe
+wedef count(a):
   for i in range(len(a)):
-    asd
-    asd
+    asdeq
+    sadqw // fixed
+
+    
     sad
     sad
-    sad
-    asd
+    asdwe
     as
     das
     d
     ad
-    d
-asd
+    deq
+asdqw
 asd
 as
 d
 qweqw
 q
-
-
-
-
-123
-123
-
+w
+d
 123
 123124091*23
 a
