@@ -1,28 +1,5 @@
-///this is 1.0.0
-asdasd
-
-
-
-ad
-asd
-ad
-sad
-sad("1.0.0")
-
-
-
-
-def count(a):asdasd
-  as
-da
-sd
-asd
-as
-d
-
-  for i in range(len(a)):
-    asd
-    asd
+asdasdd
+wdwqdwqd
     sad
     sad
     sad
