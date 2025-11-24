@@ -1,20 +1,5 @@
-///this is 1.0.0
-asdasd
-s
-kd
-sald
-lkwq
-kdwq
-kT3-1843
-da
-sd
-asd
-as
-d
-
-  for i in range(len(a)):
-    asd
-    asd
+asdasdd
+wdwqdwqd
     sad
     sad
     sad
