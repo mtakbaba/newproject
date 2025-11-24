@@ -1,19 +1,11 @@
 ///this is 1.0.0
 asdasd
-
-
-
-ad
-asd
-ad
-sad
-sad("1.0.0")
-
-
-
-
-def count(a):asdasd
-  as
+s
+kd
+sald
+lkwq
+kdwq
+kT3-1843
 da
 sd
 asd
